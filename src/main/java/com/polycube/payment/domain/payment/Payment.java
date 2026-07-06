@@ -32,6 +32,9 @@ public class Payment {
     private Order order;
 
     @Column(nullable = false)
+    private long originalAmount;
+
+    @Column(nullable = false)
     private long finalAmount;
 
     @Enumerated(EnumType.STRING)
@@ -41,9 +44,12 @@ public class Payment {
     @Column(nullable = false)
     private LocalDateTime paidAt;
 
-    public Payment(Order order, long finalAmount, PaymentMethod paymentMethod, LocalDateTime paidAt) {
+    public Payment(Order order, long originalAmount, long finalAmount, PaymentMethod paymentMethod, LocalDateTime paidAt) {
         if (order == null) {
             throw new IllegalArgumentException("주문 정보는 필수입니다.");
+        }
+        if (originalAmount <= 0) {
+            throw new IllegalArgumentException("주문 원가는 0보다 커야 합니다.");
         }
         if (finalAmount < 0) {
             throw new IllegalArgumentException("최종 결제 금액은 0 이상이어야 합니다.");
@@ -55,6 +61,7 @@ public class Payment {
             throw new IllegalArgumentException("결제 일시는 필수입니다.");
         }
         this.order = order;
+        this.originalAmount = originalAmount;
         this.finalAmount = finalAmount;
         this.paymentMethod = paymentMethod;
         this.paidAt = paidAt;

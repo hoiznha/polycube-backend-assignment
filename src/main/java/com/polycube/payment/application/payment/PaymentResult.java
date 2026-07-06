@@ -7,7 +7,9 @@ public record PaymentResult(
         Long paymentId,
         Long orderId,
         long originalAmount,
-        long discountAmount,
+        long gradeDiscountAmount,
+        long paymentMethodDiscountAmount,
+        long totalDiscountAmount,
         long finalAmount,
         PaymentMethod paymentMethod,
         LocalDateTime paidAt

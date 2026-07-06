@@ -32,4 +32,11 @@ public class Member {
         }
         this.grade = grade;
     }
+
+    public void changeGrade(MemberGrade grade) {
+        if (grade == null) {
+            throw new IllegalArgumentException("회원 등급은 필수입니다.");
+        }
+        this.grade = grade;
+    }
 }
